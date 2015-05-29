@@ -1,0 +1,20 @@
+<p>Drugi widok</p>
+<p>
+  Showing of 'interpolate' filter:
+  {{ 'Current version is v%VERSION%.' | interpolate }}
+  <h2>{{total}}</h2>
+<h3>ccc{{bll}}</h3>
+
+</p>
+
+<form novalidate class="span8 form-inline">
+  <label>Imie :</label><input type="text" ng-model="aplikant.name" class="span7" /><br />
+  <label>Nazwisko:</label><input type="text" ng-model="aplikant.surname" /><br />
+  <label>Telefon:</label><input type="text" ng-model="aplikant.phone" value="male" /><br/>
+  <label>E-mail:</label><input type="email" ng-model="aplikant.email" /><br />
+  <label>Student:</label><input type="radio" ng-model="aplikant.student" value="yes" />tak
+  <input type="radio" ng-model="aplikant.student" value="no" />nie<br />
+  <input type="submit" ng-click="update(aplikant)" value="Prześlij" />
+</form>
+
+
