@@ -1,13 +1,37 @@
 'use strict';
 
-// Declare app level module which depends on views, and components
-angular.module('myApp', [
+var app= angular.module('myApp', [
   'ngRoute',
-  'myApp.view1',
+  'myApp.historia',
   'myApp.Formularz',
-  'myApp.mainModule',
+  'myApp.srodki',
   'myApp.version'
-]).
-config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/view1'});
+])
+
+
+    .config(['$routeProvider', function($routeProvider) {
+  $routeProvider.otherwise({redirectTo: '/historia'});
 }]);
+
+
+app.factory('transfers', function() {
+    var state;
+    var przelewy = [];
+    var zwrocPrzelewy = {};
+
+    zwrocPrzelewy.add = function(item) {
+        przelewy.push(item);
+    };
+    zwrocPrzelewy.list = function() {
+        return przelewy;
+    };
+
+    zwrocPrzelewy.returnState = function() {
+        return state;
+    };
+    zwrocPrzelewy.modifyState = function(modifier) {
+         state= state + modifier;
+    };
+
+    return zwrocPrzelewy;
+});
