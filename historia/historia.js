@@ -9,22 +9,14 @@ var app =  angular.module('myApp.historia', ['ngRoute'])
   });
 }])
 
-.controller('View1Ctrl', ['$scope','serwis','$rootScope','transfers',function($scope,serwis,$rootScope,transfers) {
-     // $scope.sth =10;
-      $scope.bll = 23;
-    $rootScope.test = 200000;
-      $scope.dana1 = "ddddd";
-      $scope.dana2 = 2222;
-
-        $scope.lacz = function(){
-            var text="";
-            for (var i = 0; i < 10; i++)
-                text +=$scope.body2;
-            return text;
-        }
+.controller('View1Ctrl', ['$scope','serwis','$rootScope','transfers','$sce',function($scope,serwis,$rootScope,transfers, $sce) {
 
 
-        $scope.list = transfers.list
+
+        $scope.renderHtml = function (htmlCode) {
+                return $sce.trustAsHtml(htmlCode);
+        };
+        $scope.generateTransfers = transfers.generateHTML
       $scope.fun = function(){return $scope.list().toString()}
 
 }]);

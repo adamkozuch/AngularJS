@@ -1,0 +1,6 @@
+<form style="width: 200px" name="fr">
+<label>Numer konta : {{przelew.account_number}}</label><br>
+<label>Nazwa : {{przelew.name}}</label><br>
+<label>Tytuł przelewu : {{przelew.title}}</label><br>
+<label>Kwota przelewu : {{kwota}}</label><br>
+<input type="submit" ng-click="go('/srodki');makeTransfer()" value="Wykonaj przelew" /></form>

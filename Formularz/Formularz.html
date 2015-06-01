@@ -1,13 +1,12 @@
 <p>Przelew jednorazowy</p>
-<div ng-bind-html="renderHtml(generateHtml())"></div>
 
-<form novalidate class="span8 form-inline">
-  <label>Numer konta :</label><input type="text" ng-model="przelew.account_number" class="span7" /><br />
-  <label>Nazwa odbiorcy :</label><input type="text" ng-model="przelew.name" /><br />
-  <label>Tytuł przelewu :</label><input type="text" ng-model="przelew.title" value="male" /><br/>
-  <label>Kwota przelewu :</label><input type="email" ng-model="przelew.srodki" /><br />
-  <input type="submit" ng-click="add(przelew);changeN()" value="Prześlij" />
-  <Button ng-click="print_transfers()" value="Prześlij" />
+<form name="frs"  ng-show="showForm" novalidate class="span8 form-inline" >
+  <label>Numer konta :</label><input  type="number" ng-model="przelew.account_number" class="span7" required /><br />
+  <label >Nazwa odbiorcy :</label><input  type="text" ng-model="przelew.name" required /><br />
+  <label>Tytuł przelewu :</label><input style="height:100px " type="text" ng-model="przelew.title" value="male" required /><br/>
+  <label>Kwota przelewu :</label><input type="number" ng-model="kwota" required /><br />
+  <input type="submit"   ng-disabled="frs.$invalid"  ng-click="prepareTransfer()" value="Prześlij" />
 </form>
+<!--<div ng-bind-html="renderHtml(generateHtml())"></div>-->
 
-
+<div ng-show="!showForm" my-dyrektywa></div>

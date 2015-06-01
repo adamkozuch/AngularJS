@@ -9,32 +9,56 @@ var app= angular.module('myApp.Formularz', ['ngRoute'])
   });
 }])
 
-.controller('View2Ctrl', ['$scope','$sce','$rootScope','processTransfer', 'transfers',function($scope,$sce, processTransfer,$rootScope, transfers) {
+.controller('View2Ctrl', ['$scope','$sce','$location','$rootScope','processTransfer', 'transfers',function($scope,$sce,$location, processTransfer,$rootScope, transfers) {
 
+        $scope.kwota=0;
         $scope.n =false;
-      $scope.przelew = {
+        $scope.showForm =true;
+
+        $scope.przelew = {
+            date:"",
         account_number:"",
         name:"",
         title:"",
         srodki_przed:"",
         srodki_po:""
       }
-       $scope.add = transfers.add;
 
-        $scope.changeN = function(){
+        $scope.prepareTransfer = function()
+        {
+            $scope.przelew.srodki_przed = transfers.returnState();
             $scope.n = true;
+            $scope.showForm =false;
+            $scope.przelew.srodki_po = transfers.returnState()-$scope.kwota;
+            $scope.renderHtml($scope.generateHtml())
         }
+
+        $scope.makeTransfer = function()
+        {
+            transfers.modifyState($scope.kwota);
+            $scope.add($scope.przelew);
+            alert("przelew wykonany")
+        }
+
+
+       $scope.add = transfers.add;
+        $scope.go = function ( path ) {
+            $location.path( path );
+        };
+
         $scope.renderHtml = function (htmlCode) {
             if($scope.n)
             return $sce.trustAsHtml(htmlCode);
         };
 
         $scope.generateHtml =  function() {
-            var account = '<label> Konto'+$scope.przelew.account_number+'<label><br>';
+            var account = '<form>   <label> Konto'+$scope.przelew.account_number+'<label><br>';
             var name = '<label> Nazwa'+$scope.przelew.name+'<label><br>';
             var title = '<label> Tytul'+$scope.przelew.title+'<label><br>';
             var przed = '<label> Stan konta przed'+$scope.przelew.srodki_przed+'<label><br>';
-            var po = '<label> Stan konta po'+$scope.przelew.srodki_po+'<label><br>';
+            var po = '<label> Stan konta po'+$scope.przelew.srodki_po+'<label><br> </label>' +
+                ' </form>' ;
+
 
             return account+name+title+przed+po;
         };
@@ -42,7 +66,7 @@ var app= angular.module('myApp.Formularz', ['ngRoute'])
 
 app.directive('myDyrektywa', function() {
     return {
-        template: 'Name: {{przelew.account_number}} Address: {{przelew.name}}'
+        templateUrl: 'Formularz/przelew.html'
     };
 });
 

@@ -10,9 +10,9 @@ var app =  angular.module('myApp.srodki', ['ngRoute'])
     }])
 
 
-    .controller('mainModuleCtrl', function($scope) {
-            $scope.amount =1000;
-    });
+    .controller('mainModuleCtrl',['$scope','transfers', function($scope, transfers) {
+            $scope.amount = transfers.returnState();
+    }]);
 
 
 
